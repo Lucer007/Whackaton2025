@@ -1,4 +1,3 @@
-import {Link} from "react-router-dom";
 import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar, Views, Navigate, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -489,27 +488,12 @@ Only respond with valid JSON, no markdown or extra text.`;
             setIsChatLoading(false);
         }
     };
+
     return (
-
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            {/* Navbar */}
-            <header className="navbar-gradient">
-                <div className="container">
-                    <Link to="/" className="Navbar-title">Nudge</Link>
-                    <nav>
-                        <ul className="navbar-link">
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/projects">Projects</Link></li>
-                            <li><Link to="/profile">Profile</Link></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-
-            {/*<div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', position: 'relative' }}>
-             ICS Import Section
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100%', position: 'relative' }}>
+            {/* ICS Import Section */}
             <div style={{ padding: '16px', borderBottom: '2px solid #d1d5db', backgroundColor: '#f9fafb' }}>
-                 File Upload Option
+                {/* File Upload Option */}
                 <div style={{ marginBottom: '12px' }}>
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                         <label
@@ -542,7 +526,7 @@ Only respond with valid JSON, no markdown or extra text.`;
                     </div>
                 </div>
 
-                 URL Input Option
+                {/* URL Input Option */}
                 <div style={{ display: 'flex', gap: '8px', alignItems: 'center', maxWidth: '800px' }}>
                     <input
                         type="text"
@@ -577,7 +561,7 @@ Only respond with valid JSON, no markdown or extra text.`;
                     </button>
                 </div>
 
-                 Status Messages
+                {/* Status Messages */}
                 <div style={{ marginTop: '8px' }}>
                     {error && (
                         <div style={{ color: '#dc2626', fontSize: '14px', marginBottom: '4px' }}>
@@ -593,7 +577,7 @@ Only respond with valid JSON, no markdown or extra text.`;
                         {events.length > 0 ? `📅 ${events.length} events currently loaded` : '📅 No events loaded'}
                     </div>
                 </div>
-            </div>*/}
+            </div>
 
             {/* Calendar Split View */}
             <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
@@ -688,7 +672,7 @@ Only respond with valid JSON, no markdown or extra text.`;
                     }}>
                         <div>
                             <div style={{ fontWeight: 'bold', fontSize: '16px' }}>Study Planner AI</div>
-                            <div style={{ fontSize: '12px', opacity: 0.9 }}>Powered by Gemini</div>
+                            <div style={{ fontSize: '12px', opacity: 0.9 }}>Powered by Claude</div>
                         </div>
                         <button
                             onClick={() => setIsChatOpen(false)}
@@ -708,27 +692,11 @@ Only respond with valid JSON, no markdown or extra text.`;
                     </div>
 
                     {/* API Key Input (if not set) */}
-                    {!geminiApiKey && (
-                        <div style={{ padding: '12px', backgroundColor: '#fef3c7', borderBottom: '1px solid #fde68a', flexShrink: 0 }}>
-                            <input
-                                type="password"
-                                placeholder="Enter Gemini API Key"
-                                value={geminiApiKey}
-                                onChange={(e) => setGeminiApiKey(e.target.value)}
-                                style={{
-                                    width: '100%',
-                                    padding: '8px',
-                                    border: '1px solid #d1d5db',
-                                    borderRadius: '4px',
-                                    fontSize: '12px',
-                                    boxSizing: 'border-box'
-                                }}
-                            />
-                            <div style={{ fontSize: '11px', color: '#92400e', marginTop: '4px' }}>
-                                Get your API key at: ai.google.dev
-                            </div>
+                    <div style={{ padding: '12px', backgroundColor: '#e0f2fe', borderBottom: '1px solid #bae6fd', flexShrink: 0 }}>
+                        <div style={{ fontSize: '12px', color: '#0c4a6e' }}>
+                            ✨ Powered by Claude AI - No API key needed!
                         </div>
-                    )}
+                    </div>
 
                     {/* Chat Messages */}
                     <div style={{
