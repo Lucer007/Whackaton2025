@@ -487,6 +487,7 @@ Only respond with valid JSON, no markdown or extra text.`;
     };
 
     return (
+
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             {/* Navbar */}
             <header className="navbar-gradient">
@@ -659,14 +660,17 @@ Only respond with valid JSON, no markdown or extra text.`;
                     position: 'fixed',
                     bottom: '24px',
                     right: '24px',
-                    width: '380px',
-                    height: '500px',
+                    width: '400px',
+                    maxWidth: 'calc(100vw - 48px)',
+                    height: '600px',
+                    maxHeight: 'calc(100vh - 48px)',
                     backgroundColor: 'white',
                     borderRadius: '12px',
                     boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                     display: 'flex',
                     flexDirection: 'column',
-                    zIndex: 1000
+                    zIndex: 1000,
+                    overflow: 'hidden'
                 }}>
                     {/* Chat Header */}
                     <div style={{
@@ -676,7 +680,8 @@ Only respond with valid JSON, no markdown or extra text.`;
                         borderRadius: '12px 12px 0 0',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        flexShrink: 0
                     }}>
                         <div>
                             <div style={{ fontWeight: 'bold', fontSize: '16px' }}>Study Planner AI</div>
@@ -701,7 +706,7 @@ Only respond with valid JSON, no markdown or extra text.`;
 
                     {/* API Key Input (if not set) */}
                     {!geminiApiKey && (
-                        <div style={{ padding: '12px', backgroundColor: '#fef3c7', borderBottom: '1px solid #fde68a' }}>
+                        <div style={{ padding: '12px', backgroundColor: '#fef3c7', borderBottom: '1px solid #fde68a', flexShrink: 0 }}>
                             <input
                                 type="password"
                                 placeholder="Enter Gemini API Key"
@@ -712,7 +717,8 @@ Only respond with valid JSON, no markdown or extra text.`;
                                     padding: '8px',
                                     border: '1px solid #d1d5db',
                                     borderRadius: '4px',
-                                    fontSize: '12px'
+                                    fontSize: '12px',
+                                    boxSizing: 'border-box'
                                 }}
                             />
                             <div style={{ fontSize: '11px', color: '#92400e', marginTop: '4px' }}>
@@ -728,10 +734,11 @@ Only respond with valid JSON, no markdown or extra text.`;
                         padding: '16px',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '12px'
+                        gap: '12px',
+                        minHeight: 0
                     }}>
                         {chatMessages.length === 0 && (
-                            <div style={{ textAlign: 'center', color: '#6b7280', fontSize: '14px', marginTop: '40px' }}>
+                            <div style={{ textAlign: 'center', color: '#6b7280', fontSize: '14px', marginTop: '20px' }}>
                                 <div style={{ fontSize: '48px', marginBottom: '12px' }}>📚</div>
                                 <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>I can help you with:</div>
                                 <div style={{ textAlign: 'left', display: 'inline-block' }}>
@@ -759,7 +766,8 @@ Only respond with valid JSON, no markdown or extra text.`;
                                     color: msg.role === 'user' ? 'white' : '#1f2937',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
-                                    whiteSpace: 'pre-wrap'
+                                    whiteSpace: 'pre-wrap',
+                                    wordBreak: 'break-word'
                                 }}
                             >
                                 {msg.content}
@@ -773,7 +781,7 @@ Only respond with valid JSON, no markdown or extra text.`;
                     </div>
 
                     {/* Chat Input */}
-                    <div style={{ padding: '12px', borderTop: '1px solid #e5e7eb' }}>
+                    <div style={{ padding: '12px', borderTop: '1px solid #e5e7eb', flexShrink: 0 }}>
                         {syllabusFile && (
                             <div style={{
                                 marginBottom: '8px',
@@ -785,14 +793,16 @@ Only respond with valid JSON, no markdown or extra text.`;
                                 justifyContent: 'space-between',
                                 alignItems: 'center'
                             }}>
-                                <span>📄 {syllabusFile.name}</span>
+                                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>📄 {syllabusFile.name}</span>
                                 <button
                                     onClick={() => setSyllabusFile(null)}
                                     style={{
                                         background: 'none',
                                         border: 'none',
                                         cursor: 'pointer',
-                                        fontSize: '16px'
+                                        fontSize: '16px',
+                                        marginLeft: '8px',
+                                        flexShrink: 0
                                     }}
                                 >
                                     ×
@@ -813,13 +823,14 @@ Only respond with valid JSON, no markdown or extra text.`;
                                     padding: '6px 10px',
                                     border: '1px solid #d1d5db',
                                     borderRadius: '6px',
-                                    fontSize: '12px'
+                                    fontSize: '12px',
+                                    boxSizing: 'border-box'
                                 }}
                                 disabled={isChatLoading}
                             />
                         </div>
 
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                             <label
                                 htmlFor="syllabus-upload"
                                 style={{
@@ -827,7 +838,11 @@ Only respond with valid JSON, no markdown or extra text.`;
                                     backgroundColor: '#f3f4f6',
                                     borderRadius: '6px',
                                     cursor: 'pointer',
-                                    fontSize: '20px'
+                                    fontSize: '20px',
+                                    flexShrink: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
                                 }}
                             >
                                 📎
@@ -841,17 +856,19 @@ Only respond with valid JSON, no markdown or extra text.`;
                             />
                             <input
                                 type="text"
-                                placeholder="Ask me anything about your calendar..."
+                                placeholder="Ask me anything..."
                                 value={chatInput}
                                 onChange={(e) => setChatInput(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && !isChatLoading && handleSendMessage()}
                                 disabled={isChatLoading}
                                 style={{
                                     flex: 1,
+                                    minWidth: 0,
                                     padding: '8px 12px',
                                     border: '1px solid #d1d5db',
                                     borderRadius: '6px',
-                                    fontSize: '14px'
+                                    fontSize: '14px',
+                                    boxSizing: 'border-box'
                                 }}
                             />
                             <button
@@ -865,7 +882,9 @@ Only respond with valid JSON, no markdown or extra text.`;
                                     borderRadius: '6px',
                                     cursor: isChatLoading || (!chatInput.trim() && !syllabusFile && !icsUrlForChat.trim()) ? 'not-allowed' : 'pointer',
                                     fontSize: '14px',
-                                    fontWeight: '500'
+                                    fontWeight: '500',
+                                    flexShrink: 0,
+                                    whiteSpace: 'nowrap'
                                 }}
                             >
                                 Send
