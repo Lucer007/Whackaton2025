@@ -1,54 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nudge</title>
-
-  <!-- Poppins font (matches your CSS) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Main stylesheet (use the style.css you already have) -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nudge Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Skip link for screen readers -->
-  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
-    Skip to content
-  </a>
-
-  <header class="navbar" role="banner">
-    <!-- Text-only logo -->
-    <a href="index.html" class="logo" aria-label="Nudge — home">
-      Nudge
-    </a>
-
-    <nav role="navigation" aria-label="Main navigation">
-      <ul style="list-style:none;display:flex;gap:30px;margin:0;padding:0;align-items:center;">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
-      </ul>
-    </nav>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Nudge</a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html" class="active">Project</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!--<main id="main" role="main">
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-inner" style="max-width:1000px;margin:0 auto;padding:0 8%;">
-        <h1 id="hero-heading">Modern. Clean. Professional.</h1>
-        <p>Build your online presence with a sleek landing page that stands out.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Our Projects</h1>
+      <p class="subtitle">See what we're building to make studying easier and more social.</p>
+      <p class="description">
+        From smart scheduling to streak tracking, our projects focus on helping students stay accountable without stress.
+      </p>
+    </div>
+  </section>
 
-        <div class="hero-btns" style="display:flex;gap:16px;justify-content:center;margin-top:28px;">
-          <a href="get-started.html" class="button primary">Get Started</a>
-          <a href="learn-more.html" class="button secondary">Learn More</a>
+  <!-- Project Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <img src="iphone1.jpg" alt="Project 1">
+          <h3>Smart Scheduler</h3>
+          <p>Automatically organizes your study tasks and assigns optimal times to help you stay on top of everything.</p>
+        </div>
+        <div class="feature-item">
+          <img src="iphone2.jpg" alt="Project 2">
+          <h3>Daily Streaks</h3>
+          <p>Track your study streaks and stay motivated while keeping the competition fun with friends.</p>
+        </div>
+        <div class="feature-item">
+          <img src="iphone1.jpg" alt="Project 3">
+          <h3>Real Moments Feed</h3>
+          <p>Share authentic study snapshots and see what your friends are accomplishing in real time.</p>
         </div>
       </div>
-    </section>
-  </main> -->
+    </div>
+  </section>
 
-  <footer role="contentinfo">
-    <p>© 2025 Nudge — All Rights Reserved</p>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Nudge — All Rights Reserved</p>
+    </div>
   </footer>
 
 </body>

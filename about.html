@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nudge</title>
-
-  <!-- Poppins font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Nudge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Skip link for screen readers -->
-  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
-    Skip to content
-  </a>
-
-  <header class="navbar" role="banner">
-    <!-- Text-only logo -->
-    <a href="index.html" class="logo" aria-label="Nudge — home">
-      Nudge
-    </a>
-
-    <nav role="navigation" aria-label="Main navigation">
-      <ul style="list-style:none;display:flex;gap:30px;margin:0;padding:0;align-items:center;">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
-      </ul>
-    </nav>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">Nudge</a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="projects.html">Project</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!--<main id="main" role="main">
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-inner" style="max-width:1000px;margin:0 auto;padding:0 8%;">
-        <h1 id="hero-heading">Modern. Clean. Professional.</h1>
-        <p>Build your online presence with a sleek landing page that stands out.</p>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>About Nudge</h1>
+      <p class="subtitle">The study app that keeps you accountable without pressure.</p>
+      <p class="description">
+        Like BeReal, but for studying. Your daily check-ins, class streaks, and authentic snapshots keep you motivated while staying stress-free.
+      </p>
+    </div>
+  </section>
 
-        <div class="hero-btns" style="display:flex;gap:16px;justify-content:center;margin-top:28px;">
-          <a href="get-started.html" class="button primary">Get Started</a>
-          <a href="learn-more.html" class="button secondary">Learn More</a>
+  <!-- How It Works Section -->
+  <section class="features">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <img src="pic1.jpeg" alt="Connect Classes">
+          <h3>Connect Classes</h3>
+          <p>Tap once → Nudge pulls your Canvas/Blackboard schedule or uploads your syllabus and extracts all due dates automatically.</p>
+        </div>
+        <div class="feature-item">
+          <img src="pic2.jpeg" alt="Create Plan">
+          <h3>Nudge Creates Your Plan</h3>
+          <p>The app figures out how long tasks will take and suggests the best study times for you.</p>
+        </div>
+        <div class="feature-item">
+          <img src="pic2.jpeg" alt="Post Time">
+          <h3>Show Up & Post</h3>
+          <p>Pick a suggested time, take a quick study pic, and maintain your streak while unlocking the feed.</p>
         </div>
       </div>
-    </section>
-  </main> -->
+    </div>
+  </section>
 
-  <footer role="contentinfo">
-    <p>© 2025 Nudge — All Rights Reserved</p>
+  <!-- Why It Works Section -->
+  <section class="features">
+    <div class="container">
+      <h2>Why This Works</h2>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <h3>Consistency</h3>
+          <p>You show up because your friends show up, helping you stay accountable.</p>
+        </div>
+        <div class="feature-item">
+          <h3>Organization</h3>
+          <p>Nudge automatically reads your syllabus and schedules tasks so you never miss assignments.</p>
+        </div>
+        <div class="feature-item">
+          <h3>No Cramming</h3>
+          <p>Tasks are spaced out early to help you work consistently, avoiding last-minute stress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Nudge — All Rights Reserved</p>
+    </div>
   </footer>
 
 </body>
