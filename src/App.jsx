@@ -7,6 +7,7 @@ import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import Dashboard from "./pages/Dashboard";
 import SplitCalendarPage from "./pages/SplitCalendarPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/projects" element={<ProjectsPage />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/calendar" element={<SplitCalendarPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes>
         </Router>
     );

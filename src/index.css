@@ -50,4 +50,347 @@
         text-decoration: underline;
     }
 }
+/* Example ideas – adjust to match your navbar */
+.background-class-1,
+.background-class-2,
+.background-class-3,
+.background-class-4 {
+    background: linear-gradient(135deg, #7C3AED, #C4B5FD);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.class-icon-letter {
+    color: white;
+    font-weight: 600;
+}
+
+.text-class-streak {
+    color: #4C1D95; /* deep purple */
+}
+
+/* ========================
+   Study Profile Layout
+   (cards + grids)
+======================== */
+
+.profile-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f5f0ff; /* light purple */
+    color: #33185c;
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.profile-main {
+    flex: 1;
+    padding-bottom: 3rem;
+}
+
+.profile-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Top row: profile + weekly summary */
+.profile-header {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-card,
+.summary-card,
+.class-card,
+.analytics-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(75, 0, 130, 0.08);
+}
+
+/* Profile card */
+.profile-card {
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+}
+
+.profile-card-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #7c3aed, #c4b5fd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.profile-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #2a1450;
+}
+
+.profile-role {
+    margin: 0.15rem 0;
+    font-size: 0.9rem;
+    color: #7c3aed;
+}
+
+.profile-subtitle {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #a18cd1;
+}
+
+.profile-card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    border-radius: 999px;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn-primary {
+    background: #7c3aed;
+    color: #ffffff;
+    box-shadow: 0 10px 20px rgba(124, 58, 237, 0.35);
+}
+
+.btn-primary:hover {
+    background: #6b21a8;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #7c3aed;
+    border: 1px solid #e5d9ff;
+}
+
+.btn-secondary:hover {
+    background: #f3e9ff;
+}
+
+/* Summary card on the right */
+.summary-card {
+    padding: 1.3rem 1.5rem;
+    background: linear-gradient(145deg, #6d28d9, #a855f7);
+    color: #f9f5ff;
+}
+
+.summary-label {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.9;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.summary-title {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.summary-value {
+    margin: 0.2rem 0 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.summary-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.summary-mini-label {
+    margin: 0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+}
+
+.summary-mini-value {
+    margin: 0.25rem 0 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    color: #2a1450;
+}
+
+/* Class streak cards */
+.class-section {
+    margin-bottom: 2rem;
+}
+
+.class-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.class-card {
+    padding: 1rem 1rem 0.9rem;
+}
+
+.class-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.class-left {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.class-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #7c3aed, #c4b5fd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.class-short-name {
+    margin: 0;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a78bfa;
+}
+
+.class-full-name {
+    margin: 0.15rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2a1450;
+}
+
+.class-streak-pill {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: #f5ebff;
+    color: #7c3aed;
+    font-weight: 500;
+}
+
+.class-message {
+    margin: 0.5rem 0 0.4rem;
+    font-size: 0.78rem;
+    color: #6a549d;
+}
+
+.class-stats {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #8b73c6;
+}
+
+/* Analytics cards */
+.analytics-section {
+    margin-bottom: 1rem;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 1.5rem;
+}
+
+.analytics-card {
+    padding: 1rem 1.1rem 1.3rem;
+}
+
+.analytics-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2a1450;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+    .profile-header {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .analytics-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .class-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-card-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .class-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .profile-content {
+        padding-inline: 1rem;
+    }
+}
+
 

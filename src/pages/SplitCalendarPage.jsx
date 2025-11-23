@@ -496,8 +496,8 @@ Only respond with valid JSON, no markdown or extra text.`;
                     <nav>
                         <ul className="navbar-link">
                             <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/projects">Project</Link></li>
+                            <li><Link to="/projects">Projects</Link></li>
+                            <li><Link to="/profile">Profile</Link></li>
                         </ul>
                     </nav>
                 </div>
