@@ -489,7 +489,507 @@ Only respond with valid JSON, no markdown or extra text.`;
             setIsChatLoading(false);
         }
     };
-    
+
+
+/*
+const localizer = momentLocalizer(moment);
+
+// Custom 3-day Week View Component
+function MyWeek({
+                    date,
+                    localizer,
+                    max = localizer.endOf(new Date(), 'day'),
+                    min = localizer.startOf(new Date(), 'day'),
+                    scrollToTime = localizer.startOf(new Date(), 'day'),
+                    ...props
+                }) {
+    const currRange = useMemo(
+        () => MyWeek.range(date, { localizer }),
+        [date, localizer]
+    );
+
+    return (
+        <TimeGrid
+            date={date}
+            eventOffset={15}
+            localizer={localizer}
+            max={max}
+            min={min}
+            range={currRange}
+            scrollToTime={scrollToTime}
+            {...props}
+        />
+    );
+}
+
+MyWeek.propTypes = {
+    date: PropTypes.instanceOf(Date).isRequired,
+    localizer: PropTypes.object,
+    max: PropTypes.instanceOf(Date),
+    min: PropTypes.instanceOf(Date),
+    scrollToTime: PropTypes.instanceOf(Date),
+};
+
+MyWeek.range = (date, { localizer }) => {
+    const start = date;
+    const end = dates.add(start, 2, 'day');
+
+    let current = start;
+    const range = [];
+
+    while (localizer.lte(current, end, 'day')) {
+        range.push(current);
+        current = localizer.add(current, 1, 'day');
+    }
+
+    return range;
+};
+
+MyWeek.navigate = (date, action, { localizer }) => {
+    switch (action) {
+        case Navigate.PREVIOUS:
+            return localizer.add(date, -3, 'day');
+        case Navigate.NEXT:
+            return localizer.add(date, 3, 'day');
+        default:
+            return date;
+    }
+};
+
+MyWeek.title = (date) => {
+    return `My awesome week: ${date.toLocaleDateString()}`;
+};
+
+// Main Split Calendar Component
+export default function SplitCalendarPage() {
+    const [events, setEvents] = useState([]);
+    const [icsUrl, setIcsUrl] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+    // Chatbot state
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [chatMessages, setChatMessages] = useState([]);
+    const [chatInput, setChatInput] = useState('');
+    const [isChatLoading, setIsChatLoading] = useState(false);
+    const [syllabusFile, setSyllabusFile] = useState(null);
+    const [geminiApiKey, setGeminiApiKey] = useState('');
+    const [icsUrlForChat, setIcsUrlForChat] = useState('');
+
+    // Function to parse ICS data
+    const parseICS = (icsData) => {
+        try {
+            const jcalData = ICAL.parse(icsData);
+            const comp = new ICAL.Component(jcalData);
+            const vevents = comp.getAllSubcomponents('vevent');
+
+            const parsedEvents = vevents.map(vevent => {
+                const event = new ICAL.Event(vevent);
+                return {
+                    title: event.summary,
+                    start: event.startDate.toJSDate(),
+                    end: event.endDate.toJSDate(),
+                    description: event.description || '',
+                };
+            });
+
+            return parsedEvents;
+        } catch (err) {
+            console.error('Error parsing ICS:', err);
+            throw new Error('Failed to parse ICS file');
+        }
+    };
+
+    // Function to handle file upload
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!file.name.endsWith('.ics')) {
+            setError('Please upload a valid .ics file');
+            setSuccessMessage('');
+            return;
+        }
+
+        setIsLoading(true);
+        setError('');
+        setSuccessMessage('');
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const icsData = e.target.result;
+                const parsedEvents = parseICS(icsData);
+
+                // Replace all events with parsed events
+                setEvents(parsedEvents);
+                setSuccessMessage(`Successfully loaded ${parsedEvents.length} events from file`);
+                setError('');
+            } catch (err) {
+                setError(err.message || 'Failed to load calendar');
+                setSuccessMessage('');
+            } finally {
+                setIsLoading(false);
+                // Reset file input
+                event.target.value = '';
+            }
+        };
+
+        reader.onerror = () => {
+            setError('Failed to read file');
+            setSuccessMessage('');
+            setIsLoading(false);
+        };
+
+        reader.readAsText(file);
+    };
+
+    // Function to load ICS from URL
+    const loadICSFromURL = async () => {
+        if (!icsUrl.trim()) {
+            setError('Please enter a valid ICS URL');
+            setSuccessMessage('');
+            return;
+        }
+
+        setIsLoading(true);
+        setError('');
+        setSuccessMessage('');
+
+        try {
+            // Use CORS proxy for Google Calendar URLs
+            let fetchUrl = icsUrl;
+            if (icsUrl.includes('google.com')) {
+                fetchUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icsUrl)}`;
+            }
+
+            const response = await fetch(fetchUrl);
+            if (!response.ok) {
+                throw new Error('Failed to fetch ICS file');
+            }
+
+            const icsData = await response.text();
+            const parsedEvents = parseICS(icsData);
+
+            // Replace all events with parsed events
+            setEvents(parsedEvents);
+            setSuccessMessage(`Successfully loaded ${parsedEvents.length} events from URL`);
+            setIcsUrl('');
+            setError('');
+        } catch (err) {
+            setError(err.message || 'Failed to load calendar. Try downloading the .ics file and uploading it instead.');
+            setSuccessMessage('');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const { customViews } = useMemo(
+        () => ({
+            customViews: {
+                month: true,
+                week: MyWeek,
+            },
+        }),
+        []
+    );
+
+    // Handle syllabus file upload
+    const handleSyllabusUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSyllabusFile(file);
+
+            // Check if it's an ICS file
+            if (file.name.endsWith('.ics')) {
+                setChatMessages(prev => [...prev, {
+                    role: 'system',
+                    content: `ICS calendar file uploaded: ${file.name}. I'll import it automatically.`,
+                }]);
+            } else {
+                setChatMessages(prev => [...prev, {
+                    role: 'system',
+                    content: `Syllabus uploaded: ${file.name}`,
+                }]);
+            }
+        }
+    };
+
+    // Call Gemini API
+    const callGeminiAPI = async (message, fileContent = null) => {
+        if (!geminiApiKey) {
+            return 'Please enter your Gemini API key in the chat settings.';
+        }
+
+        try {
+            // Prepare calendar data for context
+            const calendarContext = events.length > 0
+                ? `\n\nCurrent Calendar Events:\n${events.map(e =>
+                    `- ${e.title}: ${e.start.toLocaleString()} to ${e.end.toLocaleString()}${e.description ? ` (${e.description})` : ''}`
+                ).join('\n')}`
+                : '\n\nNo events currently in calendar.';
+
+            const prompt = fileContent
+                ? `You are a study planning assistant. Analyze this syllabus, the user's current calendar, and the user's request: "${message}"
+
+Syllabus content:
+${fileContent}
+${calendarContext}
+
+Based on the syllabus and existing calendar events, suggest a study plan. Look for upcoming classes, exams, or assignments in the calendar and recommend study sessions to prepare for them. Format your response as JSON with this structure:
+{
+  "explanation": "brief explanation of your recommendations based on their calendar and syllabus",
+  "studySessions": [
+    {
+      "title": "Study session title",
+      "date": "YYYY-MM-DD",
+      "startTime": "HH:MM",
+      "duration": 60,
+      "description": "what to study and why (reference specific calendar events if relevant)"
+    }
+  ]
+}
+
+Only respond with valid JSON, no markdown or extra text.`
+                : `You are a study planning assistant. The user's request: "${message}"
+${calendarContext}
+
+Analyze the user's calendar and suggest study sessions for upcoming classes or events. Consider:
+1. Classes that are coming up soon
+2. Time gaps between events where studying could fit
+3. Preparation needed before exams or assignments
+4. Consistent study patterns
+
+Format your response as JSON with this structure:
+{
+  "explanation": "brief explanation of your recommendations based on their calendar",
+  "studySessions": [
+    {
+      "title": "Study session title",
+      "date": "YYYY-MM-DD",
+      "startTime": "HH:MM",
+      "duration": 60,
+      "description": "what to study and why (reference specific calendar events)"
+    }
+  ]
+}
+
+If the user is just asking a question and not requesting study sessions, you can respond with just:
+{
+  "explanation": "your answer to their question"
+}
+
+Only respond with valid JSON, no markdown or extra text.`;
+
+            console.log('Calling Gemini API...');
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/gemini-2.5-flash-lite:generateContent?key=${geminiApiKey}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }]
+                })
+            });
+
+            console.log('Response status:', response.status);
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('API Error:', errorData);
+
+                if (response.status === 400) {
+                    throw new Error('Invalid API key or request format. Please check your API key.');
+                } else if (response.status === 403) {
+                    throw new Error('API key does not have permission. Make sure your API key is valid and has Gemini API access enabled.');
+                } else if (response.status === 429) {
+                    throw new Error('Rate limit exceeded. Please wait a moment and try again.');
+                } else {
+                    throw new Error(`API error (${response.status}): ${errorData.error?.message || 'Unknown error'}`);
+                }
+            }
+
+            const data = await response.json();
+            console.log('API Response:', data);
+
+            if (!data.candidates || data.candidates.length === 0) {
+                throw new Error('No response from Gemini. Try rephrasing your question.');
+            }
+
+            const text = data.candidates[0].content.parts[0].text;
+            return text;
+        } catch (err) {
+            console.error('Gemini API error:', err);
+            return `Error: ${err.message}`;
+        }
+    };
+
+    // Add study sessions to calendar
+    const addStudySessionsToCalendar = (studySessions) => {
+        const newEvents = studySessions.map(session => {
+            const [year, month, day] = session.date.split('-').map(Number);
+            const [hours, minutes] = session.startTime.split(':').map(Number);
+            const start = new Date(year, month - 1, day, hours, minutes);
+            const end = new Date(start.getTime() + session.duration * 60000);
+
+            return {
+                title: session.title,
+                start,
+                end,
+                description: session.description || '',
+            };
+        });
+
+        setEvents(prev => [...prev, ...newEvents]);
+        return newEvents.length;
+    };
+
+    // Send message to chatbot
+    const handleSendMessage = async () => {
+        if (!chatInput.trim() && !syllabusFile && !icsUrlForChat.trim()) return;
+
+        const userMessage = chatInput.trim();
+        setChatInput('');
+        setIsChatLoading(true);
+
+        // Add user message
+        if (userMessage) {
+            setChatMessages(prev => [...prev, {
+                role: 'user',
+                content: userMessage,
+            }]);
+        }
+
+        try {
+            // Handle ICS URL import
+            if (icsUrlForChat.trim()) {
+                setChatMessages(prev => [...prev, {
+                    role: 'system',
+                    content: `Loading calendar from URL...`,
+                }]);
+
+                try {
+                    let fetchUrl = icsUrlForChat;
+                    if (icsUrlForChat.includes('google.com')) {
+                        fetchUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icsUrlForChat)}`;
+                    }
+
+                    const response = await fetch(fetchUrl);
+                    if (!response.ok) throw new Error('Failed to fetch ICS file');
+
+                    const icsData = await response.text();
+                    const parsedEvents = parseICS(icsData);
+                    setEvents(parsedEvents);
+
+                    setChatMessages(prev => [...prev, {
+                        role: 'assistant',
+                        content: `✅ Successfully imported ${parsedEvents.length} events from the URL to your calendar!\n\nNow I can help you plan study sessions around these events. What would you like me to help with?`,
+                    }]);
+
+                    setIcsUrlForChat('');
+                    setIsChatLoading(false);
+                    return;
+                } catch (err) {
+                    setChatMessages(prev => [...prev, {
+                        role: 'assistant',
+                        content: `❌ Failed to import calendar: ${err.message}. Try downloading the .ics file and uploading it instead.`,
+                    }]);
+                    setIcsUrlForChat('');
+                    setIsChatLoading(false);
+                    return;
+                }
+            }
+
+            let fileContent = null;
+            let isICSFile = false;
+
+            // Read file if uploaded
+            if (syllabusFile) {
+                isICSFile = syllabusFile.name.endsWith('.ics');
+
+                fileContent = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = reject;
+                    reader.readAsText(syllabusFile);
+                });
+
+                // If it's an ICS file, automatically import it
+                if (isICSFile) {
+                    try {
+                        const parsedEvents = parseICS(fileContent);
+                        setEvents(parsedEvents);
+
+                        setChatMessages(prev => [...prev, {
+                            role: 'assistant',
+                            content: `✅ Successfully imported ${parsedEvents.length} events from ${syllabusFile.name} to your calendar!\n\nNow I can help you plan study sessions around these events. What would you like me to help with?`,
+                        }]);
+
+                        setSyllabusFile(null);
+                        setIsChatLoading(false);
+                        return;
+                    } catch (err) {
+                        setChatMessages(prev => [...prev, {
+                            role: 'assistant',
+                            content: `❌ Failed to import ICS file: ${err.message}. Please make sure it's a valid calendar file.`,
+                        }]);
+                        setSyllabusFile(null);
+                        setIsChatLoading(false);
+                        return;
+                    }
+                }
+            }
+
+            // For syllabus files or text queries, use Gemini
+            const response = await callGeminiAPI(
+                userMessage || 'Analyze this and suggest study sessions',
+                isICSFile ? null : fileContent
+            );
+
+            // Try to parse as JSON for study sessions
+            try {
+                const cleaned = response.replace(/```json\n?|\n?```/g, '').trim();
+                const parsed = JSON.parse(cleaned);
+
+                if (parsed.studySessions && Array.isArray(parsed.studySessions)) {
+                    const count = addStudySessionsToCalendar(parsed.studySessions);
+                    setChatMessages(prev => [...prev, {
+                        role: 'assistant',
+                        content: `${parsed.explanation}\n\n✅ Added ${count} study sessions to your calendar!`,
+                    }]);
+                } else {
+                    setChatMessages(prev => [...prev, {
+                        role: 'assistant',
+                        content: parsed.explanation || response,
+                    }]);
+                }
+            } catch {
+                // Not JSON, just display the response
+                setChatMessages(prev => [...prev, {
+                    role: 'assistant',
+                    content: response,
+                }]);
+            }
+
+            // Clear syllabus after processing
+            setSyllabusFile(null);
+        } catch (err) {
+            setChatMessages(prev => [...prev, {
+                role: 'assistant',
+                content: 'Sorry, I encountered an error. Please try again.',
+            }]);
+        } finally {
+            setIsChatLoading(false);
+        }
+    };
+*/
+
     return (
 
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
