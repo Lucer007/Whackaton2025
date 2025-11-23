@@ -535,3 +535,15 @@
         padding-inline: 1rem;
     }
 }
+.hero {
+    background-image: url('/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Optional: spacing & layout */
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
