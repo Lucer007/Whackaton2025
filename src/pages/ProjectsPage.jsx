@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-export default function LandingPage() {
+export default function ProjectsPage() {
     return (
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             {/* Navbar */}
@@ -21,29 +21,33 @@ export default function LandingPage() {
             {/* Hero Section */}
             <section className="hero">
                 <div className="container hero-content">
-                    <h1>Nudge</h1>
-                    <p className="subtitle">Like BeReal, but for studying.</p>
+                    <h1>Our Projects</h1>
+                    <p className="subtitle">See what we're building to make studying easier and more social.</p>
                     <p className="description">
-                        A social study app where your daily check-ins, class streaks, and authentic snapshots keep you accountable without pressure, without fake productivity.
+                        From smart scheduling to streak tracking, our projects focus on helping students stay accountable without stress.
                     </p>
-                    <Link to="/calendar" className="button primary">Get Started</Link>
                 </div>
             </section>
 
-            {/* Features Section */}
+            {/* Project Features Section */}
             <section className="features">
                 <div className="container">
-                    <h2>Study the way you already live online</h2>
+                    <h2>Featured Projects</h2>
                     <div className="feature-grid">
                         <div className="feature-item">
-                            <img src="iphone1.jpg" alt="Feature 1" />
-                            <h3>Example 1</h3>
-                            <p>Short description of what this feature or image represents.</p>
+                            <img src="iphone1.jpg" alt="Project 1" />
+                            <h3>Smart Scheduler</h3>
+                            <p>Automatically organizes your study tasks and assigns optimal times to help you stay on top of everything.</p>
                         </div>
                         <div className="feature-item">
-                            <img src="iphone2.jpg" alt="Feature 2" />
-                            <h3>Example 2</h3>
-                            <p>Short description of this second feature or image.</p>
+                            <img src="iphone2.jpg" alt="Project 2" />
+                            <h3>Daily Streaks</h3>
+                            <p>Track your study streaks and stay motivated while keeping the competition fun with friends.</p>
+                        </div>
+                        <div className="feature-item">
+                            <img src="iphone1.jpg" alt="Project 3" />
+                            <h3>Real Moments Feed</h3>
+                            <p>Share authentic study snapshots and see what your friends are accomplishing in real time.</p>
                         </div>
                     </div>
                 </div>
