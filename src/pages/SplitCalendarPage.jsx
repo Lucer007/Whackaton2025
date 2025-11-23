@@ -299,7 +299,8 @@ If the user is just asking a question and not requesting study sessions, you can
 
 Only respond with valid JSON, no markdown or extra text.`;
 
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+            console.log('Calling Gemini API...');
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${geminiApiKey}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -313,17 +314,35 @@ Only respond with valid JSON, no markdown or extra text.`;
                 })
             });
 
+            console.log('Response status:', response.status);
+
             if (!response.ok) {
-                throw new Error('Failed to get response from Gemini');
+                const errorData = await response.json();
+                console.error('API Error:', errorData);
+
+                if (response.status === 400) {
+                    throw new Error('Invalid API key or request format. Please check your API key.');
+                } else if (response.status === 403) {
+                    throw new Error('API key does not have permission. Make sure your API key is valid and has Gemini API access enabled.');
+                } else if (response.status === 429) {
+                    throw new Error('Rate limit exceeded. Please wait a moment and try again.');
+                } else {
+                    throw new Error(`API error (${response.status}): ${errorData.error?.message || 'Unknown error'}`);
+                }
             }
 
             const data = await response.json();
-            const text = data.candidates[0].content.parts[0].text;
+            console.log('API Response:', data);
 
+            if (!data.candidates || data.candidates.length === 0) {
+                throw new Error('No response from Gemini. Try rephrasing your question.');
+            }
+
+            const text = data.candidates[0].content.parts[0].text;
             return text;
         } catch (err) {
             console.error('Gemini API error:', err);
-            return 'Error communicating with Gemini. Please check your API key and try again.';
+            return `Error: ${err.message}`;
         }
     };
 
