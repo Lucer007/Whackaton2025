@@ -489,7 +489,6 @@ Only respond with valid JSON, no markdown or extra text.`;
             setIsChatLoading(false);
         }
     };
-    
     return (
 
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
