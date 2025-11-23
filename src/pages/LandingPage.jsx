@@ -36,14 +36,14 @@ export default function LandingPage() {
                     <h2>Study the way you already live online</h2>
                     <div className="feature-grid">
                         <div className="feature-item">
-                            <img src="/iphone1.jpg" alt="iphone1" />
+                            <img src="pic5.jpeg" alt="iphone1" />
                             <h3>Example 1</h3>
-                            <p>Short description of what this feature or image represents.</p>
+                            <p>Shows your study plan</p>
                         </div>
                         <div className="feature-item">
-                            <img src="/iphone2.jpg" alt="iphone2" />
+                            <img src="pic6.jpeg" alt="iphone2" />
                             <h3>Example 2</h3>
-                            <p>Short description of this second feature or image.</p>
+                            <p>Next study  all set</p>
                         </div>
                     </div>
                 </div>

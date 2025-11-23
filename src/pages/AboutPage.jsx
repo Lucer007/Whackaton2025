@@ -40,7 +40,7 @@ export default function AboutPage() {
                             <p>Tap once → Nudge pulls your Canvas/Blackboard schedule or uploads your syllabus and extracts all due dates automatically.</p>
                         </div>
                         <div className="feature-item">
-                            <img src="pic2.jpeg" alt="Create Plan" />
+                            <img src="pic3.jpeg" alt="Create Plan" />
                             <h3>Nudge Creates Your Plan</h3>
                             <p>The app figures out how long tasks will take and suggests the best study times for you.</p>
                         </div>
