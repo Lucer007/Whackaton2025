@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nudge</title>
+
+  <!-- Poppins font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Skip link for screen readers -->
+  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+    Skip to content
+  </a>
+
+  <header class="navbar" role="banner">
+    <!-- Text-only logo -->
+    <a href="index.html" class="logo" aria-label="Nudge — home">
+      Nudge
+    </a>
+
+    <nav role="navigation" aria-label="Main navigation">
+      <ul style="list-style:none;display:flex;gap:30px;margin:0;padding:0;align-items:center;">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" role="main">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner" style="max-width:1000px;margin:0 auto;padding:0 8%;">
+        <h1 id="hero-heading">Modern. Clean. Professional.</h1>
+        <p>Build your online presence with a sleek landing page that stands out.</p>
+
+        <div class="hero-btns" style="display:flex;gap:16px;justify-content:center;margin-top:28px;">
+          <a href="get-started.html" class="button primary">Get Started</a>
+          <a href="learn-more.html" class="button secondary">Learn More</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <p>© 2025 Nudge — All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
