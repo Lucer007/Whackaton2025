@@ -300,7 +300,7 @@ If the user is just asking a question and not requesting study sessions, you can
 Only respond with valid JSON, no markdown or extra text.`;
 
             console.log('Calling Gemini API...');
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${geminiApiKey}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
