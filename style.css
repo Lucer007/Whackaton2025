@@ -1,4 +1,4 @@
-/* Global layout */
+@import "tailwindcss"; /* Global layout */
 * {
     margin: 0;
     padding: 0;
@@ -147,5 +147,4 @@ footer {
 }
 
 /* Responsive tweaks */
-@media (max-width: 768px) {
-    .navb
+@media (max-width: 768px) {}
