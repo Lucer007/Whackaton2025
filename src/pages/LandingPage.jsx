@@ -3,36 +3,57 @@ import { Link } from 'react-router-dom';
 
 export default function LandingPage() {
     return (
-        <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <header className="navbar" role="banner">
-                <a href="/" className="logo" aria-label="Nudge — home">
-                    Nudge
-                </a>
-                <nav role="navigation" aria-label="Main navigation">
-                    <ul style={{listStyle:'none', display:'flex', gap:'30px', margin:0, padding:0, alignItems:'center'}}>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/about">About</Link></li>
-                        <li><a href="projects.html">Projects</a></li>
-                    </ul>
-                </nav>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+            {/* Navbar */}
+            <header className="navbar">
+                <div className="container">
+                    <Link to="/" className="logo">Nudge</Link>
+                    <nav>
+                        <ul className="nav-list">
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/about">About</Link></li>
+                            <li><a href="projects.html">Project</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </header>
 
-            <main id="main" role="main" style={{flex: 1}}>
-                <section className="hero" aria-labelledby="hero-heading">
-                    <div className="hero-inner" style={{maxWidth:'1000px', margin:'0 auto', padding:'0 8%'}}>
-                        <h1 id="hero-heading">Modern. Clean. Professional.</h1>
-                        <p>Build your online presence with a sleek landing page that stands out.</p>
+            {/* Hero Section */}
+            <section className="hero">
+                <div className="container hero-content">
+                    <h1>Nudge</h1>
+                    <p className="subtitle">Like BeReal, but for studying.</p>
+                    <p className="description">
+                        A social study app where your daily check-ins, class streaks, and authentic snapshots keep you accountable without pressure, without fake productivity.
+                    </p>
+                    <Link to="/calendar" className="button primary">Get Started</Link>
+                </div>
+            </section>
 
-                        <div className="hero-btns" style={{display:'flex', gap:'16px', justifyContent:'center', marginTop:'28px'}}>
-                            <Link to="/calendar" className="button primary">Get Started</Link>
-                            <a href="learn-more.html" className="button secondary">Learn More</a>
+            {/* Features Section */}
+            <section className="features">
+                <div className="container">
+                    <h2>Study the way you already live online</h2>
+                    <div className="feature-grid">
+                        <div className="feature-item">
+                            <img src="iphone1.jpg" alt="Feature 1" />
+                            <h3>Example 1</h3>
+                            <p>Short description of what this feature or image represents.</p>
+                        </div>
+                        <div className="feature-item">
+                            <img src="iphone2.jpg" alt="Feature 2" />
+                            <h3>Example 2</h3>
+                            <p>Short description of this second feature or image.</p>
                         </div>
                     </div>
-                </section>
-            </main>
+                </div>
+            </section>
 
-            <footer role="contentinfo">
-                <p>© 2025 Nudge — All Rights Reserved</p>
+            {/* Footer */}
+            <footer>
+                <div className="container">
+                    <p>© 2025 Nudge — All Rights Reserved</p>
+                </div>
             </footer>
         </div>
     );
